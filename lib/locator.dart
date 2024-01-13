@@ -1,6 +1,7 @@
 import 'package:audio_probe/Navigation/nav.dart';
 import 'package:audio_probe/Provider/login.provider.dart';
 import 'package:audio_probe/Provider/profile.provider.dart';
+import 'package:audio_probe/Provider/recording.provider.dart';
 import 'package:audio_probe/repo.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -45,6 +46,10 @@ Future<void> init() async {
         repo: loc(),
         ns: loc(),
       ));
-
-  
+  loc.registerFactory(() => RecordingProvider(
+        sharedPreferences: loc(),
+        dioClient: loc(),
+        repo: loc(),
+        ns: loc(),
+      ));
 }

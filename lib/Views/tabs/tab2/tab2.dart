@@ -5,6 +5,7 @@ import 'package:audio_probe/Custom/custom_text.dart';
 import 'package:audio_probe/Custom/custom_textfield.dart';
 import 'package:audio_probe/Custom/systempadding.dart';
 import 'package:audio_probe/Custom/widgets/base_widget.dart';
+import 'package:audio_probe/Custom/widgets/custom_dropdown.dart';
 import 'package:audio_probe/Values/values.dart';
 import 'package:audio_probe/Views/tabs/tab2/detailscreen.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +20,15 @@ class Tab2 extends StatefulWidget {
 }
 
 class _Tab2State extends State<Tab2> {
+  final List _genderlist = ["Male", "Female", "Other"];
+  String? selectedValue;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BaseWidget(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => addPatient(),
+        onPressed: () => addPatient(size),
         backgroundColor: AppColors.primaryDarkColor,
         child: Icon(
           Iconsax.add,
@@ -160,7 +164,7 @@ class _Tab2State extends State<Tab2> {
     );
   }
 
-  addPatient() {
+  addPatient(Size size) {
     return showGeneralDialog(
         context: context,
         barrierLabel: "Add by id",
@@ -207,6 +211,32 @@ class _Tab2State extends State<Tab2> {
                               child: CustomTextFormField(
                                 controller: TextEditingController(),
                                 hint: 'Patient Name',
+                              )),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Material(
+                              color: AppColors.white,
+                              child: CustomDD(
+                                items: _genderlist
+                                    .map((item) => DropdownMenuItem<String>(
+                                          value: item,
+                                          child: SizedBox(
+                                            width: size.width * 0.85,
+                                            child: Text(
+                                              item,
+                                              style: GoogleFonts.poppins(),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ))
+                                    .toList(),
+                                value: selectedValue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedValue = value as String;
+                                  });
+                                },
                               )),
                           SizedBox(
                             height: 20,

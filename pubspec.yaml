@@ -62,9 +62,9 @@ dependencies:
   fluttertoast: ^8.2.2
   permission_handler: ^11.0.1
   toggle_switch: ^2.1.0
+  dropdown_button2: ^2.3.9
   flutter_onboarding_slider: ^1.0.11
-  assets_audio_player:
-  flutter_sound: ^9.2.13
+  audio_waveforms: ^1.0.4
 
 dev_dependencies:
   flutter_test:

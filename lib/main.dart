@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:audio_probe/Navigation/nav.dart';
 import 'package:audio_probe/Provider/login.provider.dart';
 import 'package:audio_probe/Provider/profile.provider.dart';
+import 'package:audio_probe/Provider/recording.provider.dart';
 import 'package:audio_probe/Values/values.dart';
 import 'package:audio_probe/Views/home.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +18,7 @@ void main() async {
       .then((value) => runApp(MultiProvider(providers: [
             ChangeNotifierProvider(create: (_) => ltr.loc<LoginUser>()),
             ChangeNotifierProvider(create: (_) => ltr.loc<ProfileProvider>()),
+            ChangeNotifierProvider(create: (_) => ltr.loc<RecordingProvider>()),
           ], child: MyApp())));
 }
 
