@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:audio_probe/Navigation/nav.dart';
+import 'package:audio_probe/Provider/booking.provider.dart';
 import 'package:audio_probe/Provider/clients.provider.dart';
 import 'package:audio_probe/Provider/login.provider.dart';
 import 'package:audio_probe/Provider/profile.provider.dart';
@@ -20,7 +21,8 @@ void main() async {
             ChangeNotifierProvider(create: (_) => ltr.loc<LoginUser>()),
             ChangeNotifierProvider(create: (_) => ltr.loc<ProfileProvider>()),
             ChangeNotifierProvider(create: (_) => ltr.loc<RecordingProvider>()),
-            ChangeNotifierProvider(create: (_) => ltr.loc<PatientsProvider>())
+            ChangeNotifierProvider(create: (_) => ltr.loc<PatientsProvider>()),
+            ChangeNotifierProvider(create: (_) => ltr.loc<BookingProvider>())
           ], child: MyApp())));
 }
 
