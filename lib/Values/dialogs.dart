@@ -29,7 +29,7 @@ class Dialogs {
                 )),
                 Center(
                     child: Lottie.asset(
-                  'assets/lottie/loading.json',
+                  'assets/lotties/loading.json',
                   width: 96.0,
                   fit: BoxFit.fitWidth,
                 )),
@@ -120,8 +120,6 @@ class Dialogs {
     );
   }
 
-  
-
   static showAlertDialog2(
       {required BuildContext context,
       required String title,
@@ -158,6 +156,4 @@ class Dialogs {
       ),
     );
   }
-
-  
 }

@@ -30,10 +30,10 @@ class Onboarding extends StatelessWidget {
               SlideRightRoute(page: const LoginScreen()), (route) => false);
         },
         background: [
-          Image.asset('assets/images/onboard1.png'),
-          Image.asset('assets/images/onboard2.png'),
-          Image.asset('assets/images/onboard3.png'),
-          Image.asset('assets/images/onboard4.png'),
+          Image.asset('assets/images/logo.jpg'),
+          Image.asset('assets/images/logo.jpg'),
+          Image.asset('assets/images/logo.jpg'),
+          Image.asset('assets/images/logo.jpg'),
         ],
         totalPage: 4,
         speed: 1.8,
@@ -107,22 +107,6 @@ class Onboarding extends StatelessWidget {
                     align: TextAlign.center,
                     textSize: 17,
                     text: '',
-                    id: 2),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: const Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 480,
-                ),
-                customText(
-                    weight: FontWeight.bold,
-                    textSize: 17,
-                    align: TextAlign.center,
-                    text: "",
                     id: 2),
               ],
             ),

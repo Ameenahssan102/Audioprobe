@@ -2,6 +2,7 @@
 
 import 'package:audio_probe/Custom/base_widget.dart';
 import 'package:audio_probe/Custom/custom_text.dart';
+import 'package:audio_probe/Models/clients.model.dart';
 import 'package:audio_probe/Provider/recording.provider.dart';
 import 'package:audio_probe/Values/values.dart';
 import 'package:audio_waveforms/audio_waveforms.dart';
@@ -11,8 +12,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class DetailScreen extends StatefulWidget {
-  final String id;
-  const DetailScreen({super.key, required this.id});
+  final Datum clientData;
+  const DetailScreen({super.key, required this.clientData});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -188,7 +189,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   customText(
-                                    text: "Id No: ${widget.id}",
+                                    text: "Id No: ${widget.clientData.id}",
                                     id: 1,
                                     weight: FontWeight.bold,
                                     textSize: 20,
@@ -203,7 +204,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                       Flexible(
                                         child: Container(
                                           padding: EdgeInsets.only(right: 13.0),
-                                          child: Text("Alex Thomas",
+                                          child: Text(
+                                              widget.clientData.firstName! +
+                                                  widget.clientData.lastName!,
                                               overflow: TextOverflow.clip,
                                               style: GoogleFonts.poppins()),
                                         ),
@@ -220,7 +223,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                         child: Container(
                                           padding: EdgeInsets.only(right: 8.0),
                                           child: Text(
-                                              "101 Quinton Road,Coventry,CV35FE,WestMidlands,Uk",
+                                              widget.clientData.address!,
                                               overflow: TextOverflow.clip,
                                               style: GoogleFonts.poppins()),
                                         ),
@@ -261,7 +264,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                             child: Container(
                                               padding:
                                                   EdgeInsets.only(right: 8.0),
-                                              child: Text("12",
+                                              child: Text(
+                                                  widget.clientData.age
+                                                      .toString(),
                                                   overflow: TextOverflow.clip,
                                                   style: GoogleFonts.poppins()),
                                             ),
@@ -274,7 +279,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                       Row(
                                         children: [
                                           customText(
-                                            text: "Subject :",
+                                            text: "Gender :",
                                             id: 1,
                                             color: AppColors.hint,
                                           ),
@@ -285,7 +290,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                             child: Container(
                                               padding:
                                                   EdgeInsets.only(right: 8.0),
-                                              child: Text("Apraxia ",
+                                              child: Text(
+                                                  widget.clientData.gender!,
                                                   overflow: TextOverflow.clip,
                                                   style: GoogleFonts.poppins()),
                                             ),

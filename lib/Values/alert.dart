@@ -13,7 +13,7 @@ class Alerts {
   static showError2(String text) {
     return showSimpleNotification(
         Text(text, style: const TextStyle(color: AppColors.white)),
-        background: Colors.red.shade800);
+        background: Colors.red.shade900);
   }
 
   static showSuccess(String text) {

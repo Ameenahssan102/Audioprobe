@@ -1,10 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:audio_probe/Navigation/nav.dart';
+import 'package:audio_probe/Provider/clients.provider.dart';
 import 'package:audio_probe/Provider/login.provider.dart';
 import 'package:audio_probe/Provider/profile.provider.dart';
 import 'package:audio_probe/Provider/recording.provider.dart';
 import 'package:audio_probe/Values/values.dart';
-import 'package:audio_probe/Views/home.dart';
+import 'package:audio_probe/Views/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -19,6 +20,7 @@ void main() async {
             ChangeNotifierProvider(create: (_) => ltr.loc<LoginUser>()),
             ChangeNotifierProvider(create: (_) => ltr.loc<ProfileProvider>()),
             ChangeNotifierProvider(create: (_) => ltr.loc<RecordingProvider>()),
+            ChangeNotifierProvider(create: (_) => ltr.loc<PatientsProvider>())
           ], child: MyApp())));
 }
 
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
         navigatorKey: NavigationService.navigatorKey,
         title: 'Audio Probe',
         debugShowCheckedModeBanner: false,
-        home: HomePage(),
+        home: Splash(),
       ),
     );
   }

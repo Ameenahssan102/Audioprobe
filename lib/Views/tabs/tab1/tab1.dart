@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class Tab1 extends StatefulWidget {
@@ -18,6 +19,22 @@ class Tab1 extends StatefulWidget {
 }
 
 class _Tab1State extends State<Tab1> {
+  String name = "";
+  String email = "";
+  String mobile = "";
+  Future<void> setProfileData() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      name = sharedPreferences.getString("name")!;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setProfileData();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -92,7 +109,7 @@ class _Tab1State extends State<Tab1> {
                           ),
                           Column(children: [
                             AutoSizeText(
-                              "Ameen Ahssan",
+                              name,
                               style: GoogleFonts.montserrat(
                                 color: AppColors.white10,
                                 fontStyle: FontStyle.italic,
@@ -179,9 +196,10 @@ class _Tab1State extends State<Tab1> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Expanded(
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: SfCalendar(
                   // key: ValueKey(calendarView),
                   allowedViews: const [CalendarView.month, CalendarView.week],

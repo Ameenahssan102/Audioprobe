@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -27,6 +28,7 @@ class _Tab4State extends State<Tab4> {
   String name = "";
   String email = "";
   String mobile = "";
+  String role = "";
 
   Future<void> getPackageInfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -41,19 +43,22 @@ class _Tab4State extends State<Tab4> {
       name = sharedPreferences.getString("name")!;
       mobile = sharedPreferences.getString("mobile")!;
       email = sharedPreferences.getString("email")!;
+      role = sharedPreferences.getString("role")!;
     });
+    print(name);
   }
 
   @override
   void initState() {
     super.initState();
     getPackageInfo();
+    setProfileData();
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    LoginUser auth = Provider.of<LoginUser>(context);
     return BaseWidget(
         child: Stack(children: [
       Container(
@@ -122,33 +127,31 @@ class _Tab4State extends State<Tab4> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         customText(
-                                            text: "Ameen Ahssan",
+                                            text: name,
                                             textSize: 19,
                                             weight: FontWeight.bold,
                                             id: 1),
                                         Divider(),
                                         customText(
-                                          text: "#22850814",
+                                          text: "#$role",
                                           id: 1,
                                           textSize: 15,
                                           weight: FontWeight.w600,
                                           color: AppColors.black,
                                         ),
                                         customText(
-                                          text: "Speech Therapist",
+                                          text: email,
+                                          id: 1,
+                                          textSize: 15,
+                                          weight: FontWeight.w600,
+                                          color: AppColors.black,
+                                        ),
+                                        customText(
+                                          text: mobile,
                                           id: 1,
                                           textSize: 15,
                                           color: AppColors.black,
                                         ),
-                                        customText(
-                                          text: "ameenahssan006@gmail.com",
-                                          id: 1,
-                                          textSize: 13,
-                                        ),
-                                        customText(
-                                            text: "+44 0738888888",
-                                            textSize: 14,
-                                            id: 1),
                                       ],
                                     ),
                                   )
@@ -249,7 +252,7 @@ class _Tab4State extends State<Tab4> {
                 child: ProfileTile(
                     color: Colors.red,
                     navigateto: () {
-                      // logout(auth);
+                      logout(auth, context);
                     },
                     icon: Iconsax.logout,
                     tiletext: "Log Out"),

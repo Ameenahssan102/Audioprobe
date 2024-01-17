@@ -1,27 +1,51 @@
 class LoginResModel {
-  String jwtToken;
-  String email;
-  String name;
-  String mobile;
+  String? response;
+  String? message;
+  int? id;
+  String? name;
+  String? email;
+  String? mobile;
+  int? roleId;
+  String? role;
+  String? accessToken;
+  String? expiresIn;
 
   LoginResModel({
-    required this.jwtToken,
-    required this.email,
-    required this.name,
-    required this.mobile,
+    this.response,
+    this.message,
+    this.id,
+    this.name,
+    this.email,
+    this.mobile,
+    this.roleId,
+    this.role,
+    this.accessToken,
+    this.expiresIn,
   });
 
   factory LoginResModel.fromJson(Map<String, dynamic> json) => LoginResModel(
-    jwtToken: json["jwtToken"],
-    email: json["email"],
-    name: json["name"],
-    mobile: json["mobile"],
-  );
+        response: json["response"],
+        message: json["message"],
+        id: json["id"],
+        name: json["name"],
+        email: json["email"],
+        mobile: json["mobile"],
+        roleId: json["roleId"],
+        role: json["role"],
+        accessToken: json["access_token"],
+        expiresIn: json["expires_in"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "jwtToken": jwtToken,
-    "email": email,
-    "name": name,
-    "mobile": mobile,
-  };
+        "response": response,
+        "message": message,
+        "id": id,
+        "name": name,
+        "email": email,
+        "mobile": mobile,
+        "roleId": roleId,
+        "role": role,
+        "access_token": accessToken,
+        "expires_in": expiresIn,
+      };
 }

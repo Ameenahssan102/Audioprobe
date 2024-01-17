@@ -124,17 +124,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
                                       child: CustomTextFormField(
-                                        // validator: (value) {
-                                        //   if (value!.isEmpty) {
-                                        //     return "UserName can't be empty";
-                                        //   } else if (value.length < 5) {
-                                        //     return "Invalid UserName";
-                                        //   }
-                                        //   return null;
-                                        // },
                                         controller:
-                                            authProvider.emailController,
-                                        hint: "Email",
+                                            authProvider.usernameController,
+                                        hint: "User name",
                                       ),
                                     ),
                                   ),
@@ -317,9 +309,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 onTap: buttonEnabled
                                     ? () {
                                         if (authProvider
-                                            .emailController.text.isEmpty) {
+                                            .usernameController.text.isEmpty) {
                                           Alerts.showError(
-                                              "Email is not allowed to be empty !");
+                                              "Username is not allowed to be empty !");
                                         } else {
                                           authProvider.forgetPassword();
                                           activeCounter();

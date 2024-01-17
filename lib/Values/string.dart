@@ -4,25 +4,20 @@ part of Values;
 
 class StringConst {
   // static const String baseUrl = "https://16.170.36.173/v1/user/";
-  static const String baseUrl = "https://admin.care4consulting.co.uk/v1/user/";
+  static const String baseUrl =
+      "https://audioprobe-8564ebe8f3b8.herokuapp.com/api";
 
   //version
-  static const String getVersion = "auth/getVersion";
-
-  //Firebase
-  static const String apiKey = "AIzaSyD4UCPndxWnsZ-0chWLwqyyljJ85VoXsXs";
-  static const String projectId = "c4care-988ac";
-  static const String appId = "1:438222289672:android:b3332257b6235fa7098abd";
-  static const String messageSenderId = "438222289672";
+  static const String getVersion = "/getVersion";
 
   //auth
-  static const String login = "auth/login";
+  static const String login = "/auth/sign_in";
   static const String forgetPassword = "auth/forgetPassword";
   static const String updatePassword = "auth/updatePassword";
 
-  //attendance
-  static const String getAttendanceStatus = "attendance/getAttendanceStatus";
-  static const String checkIn = "attendance/checkIn";
+  //clients
+  static const String LIST_OF_CLIENTS = "/clients/list_of_clients";
+  static const String ADD_CLIENT = "/clients/add_client";
   static const String checkOut = "attendance/checkOut";
   static const String getMonthlyAttendance = "attendance/getMonthlyAttendance";
   static const String getWeeklyAttendance = "attendance/getWeeklyAttendance";

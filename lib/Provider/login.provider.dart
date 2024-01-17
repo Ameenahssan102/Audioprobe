@@ -36,15 +36,13 @@ class LoginUser with ChangeNotifier {
       required this.dioClient,
       required this.sharedPreferences});
 
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
   final TextEditingController currentPasswordController =
       TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
-
 
   VersionModel? versionModel;
   Future<void> getVersion() async {
@@ -65,13 +63,7 @@ class LoginUser with ChangeNotifier {
       ApiResponse res = await repo.getData(StringConst.getVersion);
       if (res.response != null && res.response!.statusCode == 200) {
         VersionModel versionModel = VersionModel.fromJson(res.response!.data);
-        sharedPreferences.setString("playstoreUrl", versionModel.playstoreUrl!);
-        sharedPreferences.setString("appstoreUrl", versionModel.appstoreUrl!);
-        if (Platform.isAndroid) {
-          androidGoto(buildNumber, versionModel);
-        } else if (Platform.isIOS) {
-          iosGoto(buildNumber, versionModel);
-        }
+        androidGoto(buildNumber, versionModel);
       } else {
         Alerts.showError(res.error);
       }
@@ -81,31 +73,9 @@ class LoginUser with ChangeNotifier {
     }
   }
 
-  void iosGoto(String buildNumber, VersionModel version) {
-    if (version.iosServerDown!) {
-      Navigator.pushAndRemoveUntil(
-          ns.getContext(),
-          SlideRightRoute(
-              page: AppMaintenance(
-                  message:
-                      "We're currently performing scheduled maintenance to improve your experience. We'll be back shortly.")),
-          (route) => false);
-    } else if (int.parse(buildNumber) >= version.iosSupportingVersion!) {
-      goto();
-    } else {
-      Navigator.pushAndRemoveUntil(
-          ns.getContext(),
-          SlideRightRoute(
-              page: AppUpdate(
-                  message:
-                      "A new version of App is now available for download. To continue using the app and enjoy the latest features and improvements, please update it now.",
-                  isandroid: false)),
-          (route) => false);
-    }
-  }
-
   void androidGoto(String buildNumber, VersionModel version) {
-    if (version.androidServerDown!) {
+    print(buildNumber);
+    if (version.status == "Inactive") {
       Navigator.pushAndRemoveUntil(
           ns.getContext(),
           SlideRightRoute(
@@ -113,7 +83,8 @@ class LoginUser with ChangeNotifier {
                   message:
                       "We're currently performing scheduled maintenance to improve your experience. We'll be back shortly.")),
           (route) => false);
-    } else if (int.parse(buildNumber) >= version.androidSupportingVersion!) {
+    } else if (int.parse(buildNumber) >=
+        int.parse(version.supportingVersion!)) {
       goto();
     } else {
       Navigator.pushAndRemoveUntil(
@@ -151,46 +122,91 @@ class LoginUser with ChangeNotifier {
     }
   }
 
+  // Future<void> signup() async {
+  //   String email = emailController.text;
+  //   String password = passwordController.text;
+  //   // print("fcm-$fcmToken");
+  //   if (email.isEmpty && password.isEmpty) {
+  //     Alerts.showError("Login credentials are empty");
+  //   } else if (email.isEmpty) {
+  //     Alerts.showError("Email is is not allowed to be empty!");
+  //   } else if (password.isEmpty) {
+  //     Alerts.showError("Password is is not allowed to be empty!");
+  //   } else {
+  //     Dialogs.showLoading();
+  //     ApiResponse res = await repo.postData(StringConst.login,
+  //         data: {'email': email, 'password': password});
+  //     Navigator.pop(ns.getContext());
+  //     if (res.response != null && res.response!.statusCode == 200) {
+  //       clearControllers();
+  //       LoginResModel loginRes = LoginResModel.fromJson(res.response!.data);
+  //       dioClient.dio.options.headers = {'Authorization': loginRes.jwtToken};
+  //       sharedPreferences.setString("name", loginRes.name);
+  //       sharedPreferences.setString("email", loginRes.email);
+  //       sharedPreferences.setString("mobile", loginRes.mobile);
+  //       if (kDebugMode) {
+  //         print(loginRes.jwtToken);
+  //       }
+  //       sharedPreferences.setString("token", loginRes.jwtToken);
+  //       sharedPreferences.setBool("isLogged", true);
+  //       Navigator.pushAndRemoveUntil(
+  //           ns.getContext(),
+  //           MaterialPageRoute(builder: (context) => HomePage()),
+  //           (route) => false);
+  //     } else {
+  //       Alerts.showError(res.error);
+  //     }
+  //   }
+  // }
+
   Future<void> login() async {
-    String email = emailController.text;
+    String username = usernameController.text;
     String password = passwordController.text;
-  
-      // print("fcm-$fcmToken");
-      if (email.isEmpty && password.isEmpty) {
-        Alerts.showError("Login credentials are empty");
-      } else if (email.isEmpty) {
-        Alerts.showError("Email is is not allowed to be empty!");
-      } else if (password.isEmpty) {
-        Alerts.showError("Password is is not allowed to be empty!");
-      } else {
-        Dialogs.showLoading();
-        ApiResponse res = await repo.postData(StringConst.login,
-            data: {'email': email, 'password': password});
-        Navigator.pop(ns.getContext());
-        if (res.response != null && res.response!.statusCode == 200) {
-          clearControllers();
-          LoginResModel loginRes = LoginResModel.fromJson(res.response!.data);
-          dioClient.dio.options.headers = {'Authorization': loginRes.jwtToken};
-          sharedPreferences.setString("name", loginRes.name);
-          sharedPreferences.setString("email", loginRes.email);
-          sharedPreferences.setString("mobile", loginRes.mobile);
-          if (kDebugMode) {
-            print(loginRes.jwtToken);
-          }
-          sharedPreferences.setString("token", loginRes.jwtToken);
-          sharedPreferences.setBool("isLogged", true);
-          Navigator.pushAndRemoveUntil(
-              ns.getContext(),
-              MaterialPageRoute(builder: (context) => HomePage()),
-              (route) => false);
-        } else {
-          Alerts.showError(res.error);
+    // print("fcm-$fcmToken");
+    if (username.isEmpty && password.isEmpty) {
+      Alerts.showError("Login credentials are empty");
+    } else if (username.isEmpty) {
+      Alerts.showError("Username is is not allowed to be empty!");
+    } else if (password.isEmpty) {
+      Alerts.showError("Password is is not allowed to be empty!");
+    } else {
+      Dialogs.showLoading();
+      ApiResponse res = await repo.postData(StringConst.login,
+          data: {'username': username, 'password': password});
+      Navigator.pop(ns.getContext());
+      if (res.response != null && res.response!.statusCode == 200) {
+        clearControllers();
+        LoginResModel loginRes = LoginResModel.fromJson(res.response!.data);
+        dioClient.dio.options.headers = {'Authorization': loginRes.accessToken};
+        sharedPreferences.setString("name", loginRes.name!);
+        sharedPreferences.setString("email", loginRes.email!);
+        sharedPreferences.setString("mobile", loginRes.mobile!);
+        sharedPreferences.setString("role", loginRes.role!);
+        if (kDebugMode) {
+          print(loginRes.accessToken);
         }
+        sharedPreferences.setString("token", loginRes.accessToken!);
+        sharedPreferences.setBool("isLogged", true);
+        Navigator.pushAndRemoveUntil(
+            ns.getContext(),
+            MaterialPageRoute(builder: (context) => HomePage()),
+            (route) => false);
+      } else {
+        Alerts.showError2("User not found !");
       }
+    }
   }
+//   {
+//       "username": "ameen@123",
+//       "fullname": "ameen",
+//       "email": "ameen102@gmail.com",
+//       "password": "12345",
+//       "mobile": "91824536790",
+//       "roleId": 1
+// }
 
   Future<void> forgetPassword() async {
-    String email = emailController.text;
+    String email = usernameController.text;
     ApiResponse res;
     Dialogs.showLoading();
     res =
@@ -237,7 +253,7 @@ class LoginUser with ChangeNotifier {
   }
 
   void clearControllers() {
-    emailController.clear();
+    usernameController.clear();
     passwordController.clear();
     currentPasswordController.clear();
     newPasswordController.clear();

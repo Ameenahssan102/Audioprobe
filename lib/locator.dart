@@ -1,4 +1,5 @@
 import 'package:audio_probe/Navigation/nav.dart';
+import 'package:audio_probe/Provider/clients.provider.dart';
 import 'package:audio_probe/Provider/login.provider.dart';
 import 'package:audio_probe/Provider/profile.provider.dart';
 import 'package:audio_probe/Provider/recording.provider.dart';
@@ -52,4 +53,6 @@ Future<void> init() async {
         repo: loc(),
         ns: loc(),
       ));
+  loc.registerFactory(() => PatientsProvider(
+      repo: loc(), ns: loc(), dioClient: loc(), sharedPreferences: loc()));
 }
