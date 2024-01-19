@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_element, constant_identifier_names, avoid_print
 
 import 'dart:async';
+import 'dart:math';
 
 import 'package:audio_probe/Custom/custom_text.dart';
 import 'package:audio_probe/Custom/custom_textfield.dart';
@@ -65,6 +66,8 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     });
   }
+
+  bool _isStaffSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -172,6 +175,25 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                 ]),
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: _isStaffSelected,
+                                  onChanged: (value) {
+                                    print(value);
+                                    setState(() {
+                                      _isStaffSelected = value!;
+                                    });
+                                  },
+                                ),
+                                customText(
+                                  text: "Login as Staff",
+                                  id: 1,
+                                  textSize: 16,
+                                  color: AppColors.primaryDarkColor,
+                                ),
+                              ],
+                            ),
                             const Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Divider(),
@@ -202,8 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       text: "Terms and Conditions",
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () async {
-                                          const Terms =
-                                              "https://care4consulting.co.uk/terms_and_conditions.html";
+                                          const Terms = "";
                                           await canLaunchUrlString(Terms)
                                               ? launchUrlString(Terms)
                                               : print(
@@ -222,8 +243,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       text: "Privacy Policy",
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () async {
-                                          const Policy =
-                                              "https://care4consulting.co.uk/privacy_policy.html";
+                                          const Policy = "";
                                           await canLaunchUrlString(Policy)
                                               ? launchUrlString(Policy)
                                               : print(
@@ -237,7 +257,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             ElevatedButton(
                                 onPressed: () {
-                                  authProvider.login();
+                                  authProvider.login(_isStaffSelected);
                                 },
                                 style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
@@ -259,16 +279,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ],
                                 )
-
-                                // auth.load == false
-                                //     ?
-                                //     : SizedBox(
-                                //         width: 35,
-                                //         height: 35,
-                                //         child: SpinKitPulse(
-                                //           color: AppColors.white,
-                                //           duration: Duration(seconds: 2),
-                                //         ),
                                 ),
                           ],
                         ),

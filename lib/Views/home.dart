@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously, non_constant_identifier_names
 
 import 'package:audio_probe/Values/dialogs.dart';
+import 'package:audio_probe/Views/staff/addAppointments.dart';
+import 'package:audio_probe/Views/staff/addAvailabilty.dart';
+import 'package:audio_probe/Views/staff/addPatients.dart';
 import 'package:audio_probe/Views/tabs/tab1/tab1.dart';
 import 'package:audio_probe/Views/tabs/tab2/tab2.dart';
 import 'package:audio_probe/Views/tabs/tab3/tab3.dart';
@@ -12,8 +15,10 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class HomePage extends StatefulWidget {
+  final bool isStaff;
   const HomePage({
     Key? key,
+    required this.isStaff,
   }) : super(key: key);
 
   @override
@@ -25,6 +30,12 @@ class _HomePageState extends State<HomePage> {
     const Tab1(key: PageStorageKey('Page1')),
     const Tab2(key: PageStorageKey('Page2')),
     const Tab3(key: PageStorageKey('Page3')),
+    const Tab4(key: PageStorageKey('Page4')),
+  ];
+  final List<Widget> staffpages = [
+    const AddAvailability(key: PageStorageKey('Page5')),
+    const AddPatients(key: PageStorageKey('Page6')),
+    const AddAppointments(key: PageStorageKey('Page7')),
     const Tab4(key: PageStorageKey('Page4')),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
@@ -49,7 +60,11 @@ class _HomePageState extends State<HomePage> {
         }
       },
       child: Scaffold(
-        body: PageStorage(bucket: bucket, child: pages[_selectedIndex]),
+        body: PageStorage(
+            bucket: bucket,
+            child: widget.isStaff
+                ? staffpages[_selectedIndex]
+                : pages[_selectedIndex]),
         bottomNavigationBar: Container(
           color: Colors.white,
           child: Padding(
@@ -68,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                       color: AppColors.primaryColor.withOpacity(.7),
                       blurRadius: 5)
                 ],
-                items: items,
+                items: widget.isStaff ? staffIcons : items,
                 backgroundColor: AppColors.primaryDarkColor,
                 color: AppColors.black,
                 colorSelected: Colors.white,
@@ -92,6 +107,17 @@ class _HomePageState extends State<HomePage> {
     ),
     TabItem(
       icon: Iconsax.calendar,
+    ),
+    TabItem(icon: Iconsax.user)
+  ];
+
+  List<TabItem> staffIcons = [
+    TabItem(icon: Iconsax.activity),
+    TabItem(
+      icon: Iconsax.people,
+    ),
+    TabItem(
+      icon: Iconsax.calendar_add,
     ),
     TabItem(icon: Iconsax.user)
   ];

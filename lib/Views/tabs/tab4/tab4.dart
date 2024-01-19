@@ -79,89 +79,92 @@ class _Tab4State extends State<Tab4> {
                         stops: const [0.0, 1.0],
                         tileMode: TileMode.clamp),
                   ),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 25),
-                      Row(
-                        children: [
-                          SizedBox(width: 10),
-                          Align(
-                            alignment: AlignmentDirectional(0.00, -1.00),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Image.asset(
-                                'assets/images/logo.jpg',
-                                height: 50.0,
-                                fit: BoxFit.fitHeight,
-                                alignment: Alignment(0.00, 0.00),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        // SizedBox(height: 25),
+                        Row(
+                          children: [
+                            SizedBox(width: 10),
+                            Align(
+                              alignment: AlignmentDirectional(0.00, -1.00),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.asset(
+                                  'assets/images/logo.jpg',
+                                  height: 50.0,
+                                  fit: BoxFit.fitHeight,
+                                  alignment: Alignment(0.00, 0.00),
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            "Profile",
-                            style: GoogleFonts.lato(
-                              color: AppColors.black,
-                              fontStyle: FontStyle.normal,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 25),
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 16.0),
-                          child: Stack(
-                            children: [
-                              Row(
-                                children: [
-                                  Avatar(size: 64.0),
-                                  SizedBox(width: 12.0),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        customText(
-                                            text: name,
-                                            textSize: 19,
-                                            weight: FontWeight.bold,
-                                            id: 1),
-                                        Divider(),
-                                        customText(
-                                          text: "#$role",
-                                          id: 1,
-                                          textSize: 15,
-                                          weight: FontWeight.w600,
-                                          color: AppColors.black,
-                                        ),
-                                        customText(
-                                          text: email,
-                                          id: 1,
-                                          textSize: 15,
-                                          weight: FontWeight.w600,
-                                          color: AppColors.black,
-                                        ),
-                                        customText(
-                                          text: mobile,
-                                          id: 1,
-                                          textSize: 15,
-                                          color: AppColors.black,
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
+                            SizedBox(width: 10),
+                            Text(
+                              "Profile",
+                              style: GoogleFonts.lato(
+                                color: AppColors.black,
+                                fontStyle: FontStyle.normal,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30,
                               ),
-                            ],
-                          ),
+                            )
+                          ],
                         ),
-                      )
-                    ],
+                        SizedBox(height: 25),
+                        InkWell(
+                          onTap: () {},
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0, vertical: 16.0),
+                            child: Stack(
+                              children: [
+                                Row(
+                                  children: [
+                                    Avatar(size: 64.0),
+                                    SizedBox(width: 12.0),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          customText(
+                                              text: name,
+                                              textSize: 19,
+                                              weight: FontWeight.bold,
+                                              id: 1),
+                                          Divider(),
+                                          customText(
+                                            text: "#$role",
+                                            id: 1,
+                                            textSize: 15,
+                                            weight: FontWeight.w600,
+                                            color: AppColors.black,
+                                          ),
+                                          customText(
+                                            text: email,
+                                            id: 1,
+                                            textSize: 15,
+                                            weight: FontWeight.w600,
+                                            color: AppColors.black,
+                                          ),
+                                          customText(
+                                            text: mobile,
+                                            id: 1,
+                                            textSize: 15,
+                                            color: AppColors.black,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ]),

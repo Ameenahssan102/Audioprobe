@@ -28,16 +28,19 @@ class PatientsProvider with ChangeNotifier {
   final RefreshController refreshCntrlr =
       RefreshController(initialRefresh: true);
   final TextEditingController searchController = TextEditingController();
+  final TextEditingController patientSearch = TextEditingController();
   final TextEditingController fNController = TextEditingController();
   final TextEditingController lNController = TextEditingController();
   final TextEditingController aDController = TextEditingController();
   final TextEditingController aGController = TextEditingController();
+  final TextEditingController mobile = TextEditingController();
 
   Future getlistofPatients({
     bool isRefresh = false,
     required BuildContext context,
   }) async {
     var search = searchController.text;
+
     if (isRefresh) {
       _page = 1;
     } else {
@@ -65,23 +68,18 @@ class PatientsProvider with ChangeNotifier {
     }
   }
 
-  Future<void> addPatients(
-      {required BuildContext context,
-      required int userId,
-      required String firstname,
-      required String lastname,
-      required String gender,
-      required String age,
-      required String mobile,
-      required String address,
-      required int eventid}) async {
+  Future<void> addPatients({
+    required BuildContext context,
+    required String gender,
+  }) async {
+    var userId = sharedPreferences.getString("userId") ?? "";
     final Map<String, dynamic> data = {
-      "firstName": firstname,
-      "lastName": lastname,
+      "firstName": fNController.text,
+      "lastName": lNController.text,
       "gender": gender,
-      "age": age,
-      "mobile": mobile,
-      "address": address,
+      "age": aGController.text,
+      "mobile": mobile.text,
+      "address": aDController.text,
       "userId": userId
     };
     ApiResponse? res =
@@ -93,5 +91,15 @@ class PatientsProvider with ChangeNotifier {
     } else if (res.error != "401") {
       Alerts.showError(res.error);
     }
+  }
+
+  clearControllers() {
+    fNController.clear();
+    lNController.clear();
+    aGController.clear();
+    mobile.clear();
+    aDController.clear();
+    patientSearch.clear();
+    notifyListeners();
   }
 }

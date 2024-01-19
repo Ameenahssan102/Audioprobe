@@ -19,23 +19,23 @@ class CustomTextFormField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
 
-  const CustomTextFormField(
-      {Key? key,
-      required this.hint,
-      this.controller,
-      this.focusNode,
-      this.color = Colors.black,
-      this.readOnly = false,
-      this.onTap,
-      this.onChanged,
-      this.suffixIcon,
-      this.maxLength,
-      this.keyboardType,
-      this.validator,
-      this.textCapitalization = TextCapitalization.none,
-      this.inputFormatters,
-      this.obscureText = false})
-      : super(key: key);
+  const CustomTextFormField({
+    Key? key,
+    required this.hint,
+    this.controller,
+    this.focusNode,
+    this.color = Colors.black,
+    this.readOnly = false,
+    this.onTap,
+    this.onChanged,
+    this.suffixIcon,
+    this.maxLength,
+    this.keyboardType,
+    this.validator,
+    this.textCapitalization = TextCapitalization.none,
+    this.inputFormatters,
+    this.obscureText = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

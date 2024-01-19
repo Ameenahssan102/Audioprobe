@@ -45,6 +45,8 @@ class LoginUser with ChangeNotifier {
       TextEditingController();
 
   VersionModel? versionModel;
+  StaffLoginRes? staffLoginRes;
+  LoginResModel? loginRes;
   Future<void> getVersion() async {
     ApiResponse res = await repo.getData(StringConst.getVersion);
     if (res.response != null && res.response!.statusCode == 200) {
@@ -102,10 +104,11 @@ class LoginUser with ChangeNotifier {
   void goto() {
     bool isLoggedIn = sharedPreferences.getBool('isLogged') ?? false;
     bool seenOnboarding = sharedPreferences.getBool('seenOnboarding') ?? false;
+    bool isStaff = sharedPreferences.getBool('isStaff') ?? false;
     if (isLoggedIn) {
       Navigator.pushAndRemoveUntil(
           ns.getContext(),
-          MaterialPageRoute(builder: (context) => HomePage()),
+          MaterialPageRoute(builder: (context) => HomePage(isStaff: isStaff)),
           (route) => false);
     } else {
       if (seenOnboarding == true) {
@@ -159,7 +162,7 @@ class LoginUser with ChangeNotifier {
   //   }
   // }
 
-  Future<void> login() async {
+  Future<void> login(bool isStaff) async {
     String username = usernameController.text;
     String password = passwordController.text;
     // print("fcm-$fcmToken");
@@ -171,25 +174,38 @@ class LoginUser with ChangeNotifier {
       Alerts.showError("Password is is not allowed to be empty!");
     } else {
       Dialogs.showLoading();
-      ApiResponse res = await repo.postData(StringConst.login,
+      ApiResponse res = await repo.postData(
+          isStaff ? StringConst.staffLogin : StringConst.login,
           data: {'username': username, 'password': password});
       Navigator.pop(ns.getContext());
       if (res.response != null && res.response!.statusCode == 200) {
         clearControllers();
-        LoginResModel loginRes = LoginResModel.fromJson(res.response!.data);
-        dioClient.dio.options.headers = {'Authorization': loginRes.accessToken};
-        sharedPreferences.setString("name", loginRes.name!);
-        sharedPreferences.setString("email", loginRes.email!);
-        sharedPreferences.setString("mobile", loginRes.mobile!);
-        sharedPreferences.setString("role", loginRes.role!);
-        if (kDebugMode) {
-          print(loginRes.accessToken);
+        if (isStaff) {
+          staffLoginRes = StaffLoginRes.fromJson(res.response!.data);
+        } else {
+          loginRes = LoginResModel.fromJson(res.response!.data);
         }
-        sharedPreferences.setString("token", loginRes.accessToken!);
+        dioClient.dio.options.headers = {
+          'Authorization':
+              isStaff ? staffLoginRes!.accessToken : loginRes!.accessToken
+        };
+        sharedPreferences.setString("userId",
+            isStaff ? staffLoginRes!.id.toString() : loginRes!.id!.toString());
+        sharedPreferences.setString(
+            "name", isStaff ? staffLoginRes!.name! : loginRes!.name!);
+        sharedPreferences.setString(
+            "email", isStaff ? staffLoginRes!.email! : loginRes!.email!);
+        sharedPreferences.setString(
+            "mobile", isStaff ? staffLoginRes!.mobile! : loginRes!.mobile!);
+        sharedPreferences.setString(
+            "role", isStaff ? staffLoginRes!.therapist! : loginRes!.role!);
+        sharedPreferences.setString("token",
+            isStaff ? staffLoginRes!.accessToken! : loginRes!.accessToken!);
+        sharedPreferences.setBool("isStaff", isStaff ? true : false);
         sharedPreferences.setBool("isLogged", true);
         Navigator.pushAndRemoveUntil(
             ns.getContext(),
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(builder: (context) => HomePage(isStaff: isStaff)),
             (route) => false);
       } else {
         Alerts.showError2("User not found !");

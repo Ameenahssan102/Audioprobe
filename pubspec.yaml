@@ -67,6 +67,7 @@ dependencies:
   audio_waveforms: ^1.0.4
   empty_widget: ^0.0.5
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -5,6 +5,7 @@ import 'package:audio_probe/Custom/custom_text.dart';
 import 'package:audio_probe/Models/clients.model.dart';
 import 'package:audio_probe/Provider/recording.provider.dart';
 import 'package:audio_probe/Values/values.dart';
+import 'package:audio_probe/Views/tabs/tab2/analyse_screen.dart';
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -87,62 +88,133 @@ class _DetailScreenState extends State<DetailScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                  children: [
-                    IconButton(
-                      color: AppColors.hint.withOpacity(.3),
-                      onPressed: () async {
-                        if (!recordingState.isRecording) {
-                          await recorderController.record();
-                          recordingState.toggleRecording();
-                        } else {
-                          await recorderController.pause();
-                          recordingState.toggleRecording();
-                        }
-                      },
-                      icon: Icon(
-                        recorderController.isRecording
-                            ? Iconsax.pause
-                            : !recorderController.isRecording
-                                ? Iconsax.microphone
-                                : Iconsax.play,
-                        color: Colors.red.shade800,
-                        size: 30,
+                // Column(
+                //   children: [
+                //     IconButton(
+                //       color: AppColors.hint.withOpacity(.3),
+                //       onPressed: () async {
+                //         if (!recordingState.isRecording) {
+                //           await recorderController.record();
+                //           recordingState.toggleRecording();
+                //         } else {
+                //           await recorderController.pause();
+                //           recordingState.toggleRecording();
+                //         }
+                //       },
+                //       icon: Icon(
+                //         recorderController.isRecording
+                //             ? Iconsax.pause
+                //             : !recorderController.isRecording
+                //                 ? Iconsax.microphone
+                //                 : Iconsax.play,
+                //         color: Colors.red.shade800,
+                //         size: 30,
+                //       ),
+                //     ),
+                //     customText(
+                //       text: !recordingState.isRecording ? "Record" : "Pause",
+                //       id: 1,
+                //     )
+                //   ],
+                // ),
+                // recorderController.isRecording ||
+                //         recorderController.recorderState.isPaused
+                //     ? SizedBox(
+                //         width: 60,
+                //       )
+                //     : SizedBox(),
+                // recorderController.isRecording ||
+                //         recorderController.recorderState.isPaused
+                //     ? Column(
+                //         children: [
+                //           IconButton(
+                //               onPressed: () async {
+                //                 final path = await recorderController.stop();
+                //                 print(path);
+                //               },
+                //               icon: Icon(
+                //                 Iconsax.stop,
+                //                 color: Colors.red.shade800,
+                //                 size: 30,
+                //               )),
+                //           customText(
+                //             text: "Stop",
+                //             id: 1,
+                //           )
+                //         ],
+                //       )
+                //     : SizedBox()
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: 20,
                       ),
-                    ),
-                    customText(
-                      text: !recordingState.isRecording ? "Record" : "Pause",
-                      id: 1,
-                    )
-                  ],
-                ),
-                recorderController.isRecording ||
-                        recorderController.recorderState.isPaused
-                    ? SizedBox(
-                        width: 60,
-                      )
-                    : SizedBox(),
-                recorderController.isRecording ||
-                        recorderController.recorderState.isPaused
-                    ? Column(
-                        children: [
-                          IconButton(
-                              onPressed: () async {
-                                final path = await recorderController.stop();
-                                print(path);
-                              },
-                              icon: Icon(
-                                Iconsax.stop,
-                                color: Colors.red.shade800,
-                                size: 30,
-                              )),
-                          customText(
-                            text: "Stop",
-                            id: 1,
-                          )
-                        ],
-                      )
-                    : SizedBox()
+                      ElevatedButton(
+                          onPressed: () async {
+                            if (!recordingState.isRecording) {
+                              await recorderController.record();
+                              recordingState.toggleRecording();
+                            } else {
+                              await recorderController.pause();
+                              recordingState.toggleRecording();
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              fixedSize: Size(size.width / 2.5, 60),
+                              backgroundColor: Colors.red.shade800,
+                              textStyle: GoogleFonts.lato(fontSize: 20)),
+                          child: Row(
+                            children: [
+                              Icon(Iconsax.play, color: AppColors.white),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              customText(
+                                text: "Play",
+                                id: 1,
+                                color: AppColors.white,
+                              ),
+                            ],
+                          )),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      ElevatedButton(
+                          onPressed: () async {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AnalysedScreen()));
+                          },
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              fixedSize: Size(size.width / 2.5, 60),
+                              backgroundColor: AppColors.primaryDarkColor,
+                              textStyle: GoogleFonts.lato(fontSize: 20)),
+                          child: Row(
+                            children: [
+                              Icon(Iconsax.document_upload,
+                                  color: AppColors.white),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              customText(
+                                text: "Analyse",
+                                id: 1,
+                                color: AppColors.white,
+                              ),
+                            ],
+                          )),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
@@ -323,24 +395,24 @@ class _DetailScreenState extends State<DetailScreen> {
                                       // SizedBox(
                                       //   height: 2,
                                       // ),
-                                      // Row(
-                                      //   children: [
-                                      //     Icon(Iconsax.call),
-                                      //     SizedBox(
-                                      //       width: 5,
-                                      //     ),
-                                      //     Flexible(
-                                      //       child: Container(
-                                      //         padding:
-                                      //             EdgeInsets.only(right: 8.0),
-                                      //         child: Text("+44 7388888888",
-                                      //             overflow: TextOverflow.clip,
-                                      //             style:
-                                      //                 GoogleFonts.poppins()),
-                                      //       ),
-                                      //     ),
-                                      //   ],
-                                      // ),
+                                      Row(
+                                        children: [
+                                          Icon(Iconsax.call),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Flexible(
+                                            child: Container(
+                                              padding:
+                                                  EdgeInsets.only(right: 8.0),
+                                              child: Text(
+                                                  widget.clientData.mobile!,
+                                                  overflow: TextOverflow.clip,
+                                                  style: GoogleFonts.poppins()),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                       SizedBox(
                                         height: 5,
                                       ),

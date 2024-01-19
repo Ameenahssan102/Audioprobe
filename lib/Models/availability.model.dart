@@ -1,11 +1,11 @@
-class BookingModel {
+class AvailabilityModel {
   String? response;
   int? totalCount;
-  List<BookingData>? data;
+  List<AvailabilityData>? data;
   int? totalPages;
   int? currentPage;
 
-  BookingModel({
+  AvailabilityModel({
     this.response,
     this.totalCount,
     this.data,
@@ -13,12 +13,14 @@ class BookingModel {
     this.currentPage,
   });
 
-  factory BookingModel.fromJson(Map<String, dynamic> json) => BookingModel(
+  factory AvailabilityModel.fromJson(Map<String, dynamic> json) =>
+      AvailabilityModel(
         response: json["response"],
         totalCount: json["totalCount"],
         data: json["data"] == null
             ? []
-            : List<BookingData>.from(json["data"]!.map((x) => BookingData.fromJson(x))),
+            : List<AvailabilityData>.from(
+                json["data"]!.map((x) => AvailabilityData.fromJson(x))),
         totalPages: json["totalPages"],
         currentPage: json["currentPage"],
       );
@@ -34,31 +36,31 @@ class BookingModel {
       };
 }
 
-class BookingData {
+class AvailabilityData {
   int? id;
-  String? review;
-  DateTime? bookingTime;
+  DateTime? date;
+  int? slots;
+  int? availableSlots;
   DateTime? createdAt;
   DateTime? updatedAt;
   int? userId;
-  int? clientId;
 
-  BookingData({
+  AvailabilityData({
     this.id,
-    this.review,
-    this.bookingTime,
+    this.date,
+    this.slots,
+    this.availableSlots,
     this.createdAt,
     this.updatedAt,
     this.userId,
-    this.clientId,
   });
 
-  factory BookingData.fromJson(Map<String, dynamic> json) => BookingData(
+  factory AvailabilityData.fromJson(Map<String, dynamic> json) =>
+      AvailabilityData(
         id: json["id"],
-        review: json["review"],
-        bookingTime: json["bookingTime"] == null
-            ? null
-            : DateTime.parse(json["bookingTime"]),
+        date: json["date"] == null ? null : DateTime.parse(json["date"]),
+        slots: json["slots"],
+        availableSlots: json["availableSlots"],
         createdAt: json["createdAt"] == null
             ? null
             : DateTime.parse(json["createdAt"]),
@@ -66,16 +68,15 @@ class BookingData {
             ? null
             : DateTime.parse(json["updatedAt"]),
         userId: json["userId"],
-        clientId: json["clientId"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "review": review,
-        "bookingTime": bookingTime?.toIso8601String(),
+        "date": date?.toIso8601String(),
+        "slots": slots,
+        "availableSlots": availableSlots,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
         "userId": userId,
-        "clientId": clientId,
       };
 }

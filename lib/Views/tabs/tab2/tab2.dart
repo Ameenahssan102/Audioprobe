@@ -44,7 +44,7 @@ class _Tab2State extends State<Tab2> {
     return Consumer<PatientsProvider>(builder: (context, provider, child) {
       return BaseWidget(
         floatingActionButton: FloatingActionButton(
-          onPressed: () => addPatient(size),
+          onPressed: () => addPatient(size, provider),
           backgroundColor: AppColors.primaryDarkColor,
           child: Icon(
             Iconsax.add,
@@ -55,7 +55,7 @@ class _Tab2State extends State<Tab2> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              SizedBox(height: 25),
+              // SizedBox(height: 25),
               Row(
                 children: [
                   SizedBox(width: 10),
@@ -270,10 +270,10 @@ class _Tab2State extends State<Tab2> {
     });
   }
 
-  addPatient(Size size) {
+  addPatient(Size size, PatientsProvider patientsProvider) {
     return showGeneralDialog(
         context: context,
-        barrierLabel: "Add by id",
+        barrierLabel: "Add Patient",
         barrierDismissible: true,
         barrierColor: Colors.black.withOpacity(0.5),
         transitionDuration: Duration(milliseconds: 300),
@@ -292,6 +292,13 @@ class _Tab2State extends State<Tab2> {
                           Material(
                               child: Row(
                             children: [
+                              Icon(
+                                Iconsax.user_add,
+                                color: AppColors.primaryColor,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
                               customText(
                                   textSize: 18,
                                   weight: FontWeight.bold,
@@ -300,30 +307,32 @@ class _Tab2State extends State<Tab2> {
                             ],
                           )),
                           Divider(),
-                          SizedBox(
-                            height: 10,
-                          ),
+                          // SizedBox(
+                          //   height: 10,
+                          // ),
+
                           Material(
                               color: AppColors.white,
                               child: CustomTextFormField(
-                                controller: TextEditingController(),
-                                hint: 'ID',
+                                controller: patientsProvider.fNController,
+                                hint: 'First Name',
                               )),
+
                           SizedBox(
                             height: 20,
                           ),
                           Material(
                               color: AppColors.white,
                               child: CustomTextFormField(
-                                controller: TextEditingController(),
-                                hint: 'Patient Name',
+                                controller: patientsProvider.lNController,
+                                hint: 'Last Name',
                               )),
                           SizedBox(
                             height: 20,
                           ),
                           Material(
                               color: AppColors.white,
-                              child: CustomDD(
+                              child: CustomDD(isDay: false,
                                 items: _genderlist
                                     .map((item) => DropdownMenuItem<String>(
                                           value: item,
@@ -350,10 +359,25 @@ class _Tab2State extends State<Tab2> {
                           Material(
                               color: AppColors.white,
                               child: CustomTextFormField(
-                                controller: TextEditingController(),
+                                controller: patientsProvider.aGController,
                                 hint: 'Age',
                               )),
                           SizedBox(height: 20),
+                          Material(
+                              color: AppColors.white,
+                              child: CustomTextFormField(
+                                controller: patientsProvider.mobile,
+                                hint: 'Mobile',
+                              )),
+                          SizedBox(height: 20),
+                          Material(
+                              color: AppColors.white,
+                              child: CustomTextFormField(
+                                controller: patientsProvider.aDController,
+                                hint: 'Address',
+                              )),
+                          SizedBox(height: 15),
+                          Divider(),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -412,7 +436,18 @@ class _Tab2State extends State<Tab2> {
                                         ),
                                         child: MaterialButton(
                                             onPressed: () {
-                                              Navigator.pop(context, true);
+                                              patientsProvider
+                                                  .addPatients(
+                                                      context: context,
+                                                      gender: selectedValue
+                                                          .toString())
+                                                  .then((value) {
+                                                patientsProvider.refreshCntrlr
+                                                    .requestRefresh(
+                                                        needMove: false);
+                                                patientsProvider
+                                                    .clearControllers();
+                                              });
                                             },
                                             color: AppColors.primaryDarkColor
                                                 .withOpacity(0.8),

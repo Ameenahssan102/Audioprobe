@@ -3,32 +3,40 @@
 part of Values;
 
 class StringConst {
-  // static const String baseUrl = "https://16.170.36.173/v1/user/";
   static const String baseUrl =
-      "https://audioprobe-8564ebe8f3b8.herokuapp.com/api";
+      "https://audioprobe-8564ebe8f3b8.herokuapp.com/api/";
 
   //version
-  static const String getVersion = "/getVersion";
+  static const String getVersion = "getVersion";
 
   //auth
-  static const String login = "/auth/sign_in";
+  static const String login = "auth/sign_in";
   static const String forgetPassword = "auth/forgetPassword";
   static const String updatePassword = "auth/updatePassword";
 
   //clients
-  static const String LIST_OF_CLIENTS = "/clients/list_of_clients";
-  static const String ADD_CLIENT = "/clients/add_client";
+  static const String LIST_OF_CLIENTS = "clients/list_of_clients";
+  static const String ADD_CLIENT = "clients/add_client";
   static const String checkOut = "attendance/checkOut";
   static const String getMonthlyAttendance = "attendance/getMonthlyAttendance";
   static const String getWeeklyAttendance = "attendance/getWeeklyAttendance";
 
-  //notification
-  static const String getNotifications = "notification/getNotifications";
+  //appointments
+  static const String GET_MONTHLYnWEEKLY_APPOINTMENTS =
+      "appointments/list_of_appointments";
+  static const String ADD_BOOKING = "appointments/add_appointments";
 
-  //profile
-  static const String getProfile = "profile/getProfile";
-  static const String getProfileDetails = "profile/getProfileDetails";
+  //dashboard
+  static const String getDashboard = "get_dashboard";
+
+  //staff
+  static const String staffLogin = "staff/sign_in";
+
+  //availability
+  static const String getAvailability = "availability/list_of_availability";
+  static const String ADD_AVAILABILITY = "availability/add_availability";
+
+
+
   static const String updateProfileDetails = "profile/updateProfileDetails";
-  static const String updateProfileImage = "profile/updateProfileImage";
-  static const String updateDocumentImage = "profile/updateDocumentImage";
 }

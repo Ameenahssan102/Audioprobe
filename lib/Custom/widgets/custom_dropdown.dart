@@ -7,9 +7,14 @@ import 'package:iconsax/iconsax.dart';
 class CustomDD extends StatefulWidget {
   final List<DropdownMenuItem> items;
   final dynamic value;
+  final bool isDay;
   final void Function(dynamic)? onChanged;
   const CustomDD(
-      {super.key, required this.items, this.value, this.onChanged});
+      {super.key,
+      required this.items,
+      this.value,
+      this.onChanged,
+      required this.isDay});
   @override
   State<CustomDD> createState() => _CustomDDState();
 }
@@ -25,7 +30,7 @@ class _CustomDDState extends State<CustomDD> {
           hint: Row(
             children: [
               customText(
-                text: "Gender",
+                text: widget.isDay ? "Day" : "Gender",
                 id: 1,
                 color: AppColors.primaryDarkColor,
                 textSize: Sizes.TEXT_SIZE_18,
