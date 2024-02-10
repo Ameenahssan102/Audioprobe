@@ -20,7 +20,6 @@ class DioClient {
 
   late Dio dio;
   late String token = "";
-
   DioClient(
     this.baseUrl,
     Dio? dioC, {
@@ -32,12 +31,12 @@ class DioClient {
     dio = dioC ?? Dio();
     dio
       ..options.baseUrl = baseUrl
-      ..options.connectTimeout = const Duration(seconds: 30)
-      ..options.receiveTimeout = const Duration(seconds: 30)
+      ..options.connectTimeout = const Duration(seconds: 3)
+      ..options.receiveTimeout = const Duration(seconds: 3)
       ..httpClientAdapter
       ..options.headers = {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': token
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token', // Include the Bearer prefix here
       };
     dio.interceptors.add(loggingInterceptor);
   }
@@ -65,10 +64,7 @@ class DioClient {
         try {
           if (e.response!.statusCode == 401) {
             var context = NavigationService.navigatorKey.currentState!.context;
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
-                (route) => false);
+            //Navigator.pushReplacement(context, SlideRightRoute(page: const LogoutScreen()));
           }
         } catch (e) {
           rethrow;
@@ -131,6 +127,7 @@ class DioClient {
       if (e is DioError) {
         try {
           if (e.response!.statusCode == 401) {
+            var context = NavigationService.navigatorKey.currentState!.context;
             //Navigator.pushReplacement(context, SlideRightRoute(page: const LogoutScreen()));
           }
         } catch (e) {

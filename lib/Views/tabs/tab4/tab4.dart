@@ -4,9 +4,11 @@ import 'package:audio_probe/Custom/avatar.dart';
 import 'package:audio_probe/Custom/base_widget.dart';
 import 'package:audio_probe/Custom/celevatedbutton.dart';
 import 'package:audio_probe/Custom/custom_text.dart';
+import 'package:audio_probe/Custom/slide_right_route.dart';
 import 'package:audio_probe/Custom/texts.dart';
 import 'package:audio_probe/Provider/login.provider.dart';
 import 'package:audio_probe/Values/values.dart';
+import 'package:audio_probe/Views/tabs/tab4/change_password.dart';
 import 'package:audio_probe/components/profiletile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -169,27 +171,19 @@ class _Tab4State extends State<Tab4> {
                 ),
               ]),
               SizedBox(height: 10),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(
-              //       horizontal: 8, vertical: 3),
-              //   child: ProfileTile(
-              //       navigateto: () async {
-              //         Navigator.push(
-              //             context,
-              //             MaterialPageRoute(
-              //                 builder: (context) => UpdateProfile()));
-              //       },
-              //       icon: Iconsax.user,
-              //       tiletext: "Profile"),
-              // ),
-
-              // : SizedBox(),
-
-              // : SizedBox(),
-              // widget.id == 1
-              //     ?
-
-              // : SizedBox(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                child: ProfileTile(
+                    navigateto: () async {
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => UpdateProfile()));
+                    },
+                    icon: Iconsax.user,
+                    tiletext: "Staff"),
+              ),
+              SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 child: ProfileTile(
@@ -232,8 +226,8 @@ class _Tab4State extends State<Tab4> {
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 child: ProfileTile(
                     navigateto: () async {
-                      // Navigator.push(context,
-                      //     SlideRightRoute(page: const ChangePwd()));
+                      Navigator.push(
+                          context, SlideRightRoute(page: const ChangePwd()));
                     },
                     icon: Iconsax.verify,
                     tiletext: "Change Password"),

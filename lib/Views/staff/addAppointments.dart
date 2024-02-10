@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:audio_probe/Custom/base_widget.dart';
 import 'package:audio_probe/Custom/custom_text.dart';
 import 'package:audio_probe/Custom/systempadding.dart';
@@ -295,11 +297,10 @@ class _AddAppointmentsState extends State<AddAppointments> {
                                       .map((patient) => DropdownMenuItem(
                                             value: patient,
                                             child: Text(patient.firstName! +
-                                                patient.firstName!),
+                                                patient.lastName!),
                                           ))
                                       .toList(),
                                   onChanged: (selectedPatient) {
-                                    // Handle patient selection and ID retrieval
                                     selectedPatientId =
                                         selectedPatient!.id!.toString();
                                     setState(

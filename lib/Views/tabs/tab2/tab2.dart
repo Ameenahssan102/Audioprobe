@@ -287,195 +287,202 @@ class _Tab2State extends State<Tab2> {
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
-                        child:
-                            Column(mainAxisSize: MainAxisSize.min, children: [
-                          Material(
-                              child: Row(
-                            children: [
-                              Icon(
-                                Iconsax.user_add,
-                                color: AppColors.primaryColor,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              customText(
-                                  textSize: 18,
-                                  weight: FontWeight.bold,
-                                  text: "Add New Patient",
-                                  id: 1),
-                            ],
-                          )),
-                          Divider(),
-                          // SizedBox(
-                          //   height: 10,
-                          // ),
-
-                          Material(
-                              color: AppColors.white,
-                              child: CustomTextFormField(
-                                controller: patientsProvider.fNController,
-                                hint: 'First Name',
-                              )),
-
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Material(
-                              color: AppColors.white,
-                              child: CustomTextFormField(
-                                controller: patientsProvider.lNController,
-                                hint: 'Last Name',
-                              )),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Material(
-                              color: AppColors.white,
-                              child: CustomDD(isDay: false,
-                                items: _genderlist
-                                    .map((item) => DropdownMenuItem<String>(
-                                          value: item,
-                                          child: SizedBox(
-                                            width: size.width * 0.85,
-                                            child: Text(
-                                              item,
-                                              style: GoogleFonts.poppins(),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                        ))
-                                    .toList(),
-                                value: selectedValue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedValue = value as String;
-                                  });
-                                },
-                              )),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Material(
-                              color: AppColors.white,
-                              child: CustomTextFormField(
-                                controller: patientsProvider.aGController,
-                                hint: 'Age',
-                              )),
-                          SizedBox(height: 20),
-                          Material(
-                              color: AppColors.white,
-                              child: CustomTextFormField(
-                                controller: patientsProvider.mobile,
-                                hint: 'Mobile',
-                              )),
-                          SizedBox(height: 20),
-                          Material(
-                              color: AppColors.white,
-                              child: CustomTextFormField(
-                                controller: patientsProvider.aDController,
-                                hint: 'Address',
-                              )),
-                          SizedBox(height: 15),
-                          Divider(),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: SingleChildScrollView(
+                          child:
+                              Column(mainAxisSize: MainAxisSize.min, children: [
+                            Material(
+                                child: Row(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 1.0),
-                                  child: Container(
-                                    height: 55.0,
-                                    width: MediaQuery.of(context).size.width *
-                                        0.40,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    child: MaterialButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      color: AppColors.primaryDarkColor
-                                          .withOpacity(0.8),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0)),
-                                      child: Center(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.cancel_outlined,
-                                              color: AppColors.white,
+                                Icon(
+                                  Iconsax.user_add,
+                                  color: AppColors.primaryColor,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                customText(
+                                    textSize: 18,
+                                    weight: FontWeight.bold,
+                                    text: "Add New Patient",
+                                    id: 1),
+                              ],
+                            )),
+                            Divider(),
+                            // SizedBox(
+                            //   height: 10,
+                            // ),
+
+                            Material(
+                                color: AppColors.white,
+                                child: CustomTextFormField(
+                                  controller: patientsProvider.fNController,
+                                  hint: 'First Name',
+                                )),
+
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Material(
+                                color: AppColors.white,
+                                child: CustomTextFormField(
+                                  controller: patientsProvider.lNController,
+                                  hint: 'Last Name',
+                                )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Material(
+                                color: AppColors.white,
+                                child: CustomDD(
+                                  isDay: false,
+                                  items: _genderlist
+                                      .map((item) => DropdownMenuItem<String>(
+                                            value: item,
+                                            child: SizedBox(
+                                              width: size.width * 0.85,
+                                              child: Text(
+                                                item,
+                                                style: GoogleFonts.poppins(),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
                                             ),
-                                            SizedBox(
-                                              width: 7.0,
-                                            ),
-                                            customText(
-                                                text: "Cancel",
-                                                id: 1,
-                                                color: Colors.white),
-                                          ],
+                                          ))
+                                      .toList(),
+                                  value: selectedValue,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedValue = value as String;
+                                    });
+                                  },
+                                )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Material(
+                                color: AppColors.white,
+                                child: CustomTextFormField(
+                                  controller: patientsProvider.aGController,
+                                  hint: 'Age',
+                                )),
+                            SizedBox(height: 20),
+                            Material(
+                                color: AppColors.white,
+                                child: CustomTextFormField(
+                                  controller: patientsProvider.mobile,
+                                  hint: 'Mobile',
+                                )),
+                            SizedBox(height: 20),
+                            Material(
+                                color: AppColors.white,
+                                child: CustomTextFormField(
+                                  controller: patientsProvider.aDController,
+                                  hint: 'Address',
+                                )),
+                            SizedBox(height: 15),
+                            Divider(),
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 1.0),
+                                    child: Container(
+                                      height: 55.0,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.40,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      child: MaterialButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        color: AppColors.primaryDarkColor
+                                            .withOpacity(0.8),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0)),
+                                        child: Center(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.cancel_outlined,
+                                                color: AppColors.white,
+                                              ),
+                                              SizedBox(
+                                                width: 7.0,
+                                              ),
+                                              customText(
+                                                  text: "Cancel",
+                                                  id: 1,
+                                                  color: Colors.white),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 1.0),
-                                    child: Container(
-                                        height: 55.0,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.4,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        child: MaterialButton(
-                                            onPressed: () {
-                                              patientsProvider
-                                                  .addPatients(
-                                                      context: context,
-                                                      gender: selectedValue
-                                                          .toString())
-                                                  .then((value) {
-                                                patientsProvider.refreshCntrlr
-                                                    .requestRefresh(
-                                                        needMove: false);
+                                  Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 1.0),
+                                      child: Container(
+                                          height: 55.0,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          child: MaterialButton(
+                                              onPressed: () {
                                                 patientsProvider
-                                                    .clearControllers();
-                                              });
-                                            },
-                                            color: AppColors.primaryDarkColor
-                                                .withOpacity(0.8),
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0)),
-                                            child: Center(
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: const [
-                                                  Icon(
-                                                    Icons
-                                                        .check_circle_outline_outlined,
-                                                    color: AppColors.white,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 7.0,
-                                                  ),
-                                                  customText(
-                                                      text: "Add",
-                                                      id: 1,
-                                                      color: Colors.white),
-                                                ],
-                                              ),
-                                            ))))
-                              ])
-                        ]))));
+                                                    .addPatients(
+                                                        context: context,
+                                                        gender: selectedValue
+                                                            .toString())
+                                                    .then((value) {
+                                                  patientsProvider.refreshCntrlr
+                                                      .requestRefresh(
+                                                          needMove: false);
+                                                  patientsProvider
+                                                      .clearControllers();
+                                                });
+                                              },
+                                              color: AppColors.primaryDarkColor
+                                                  .withOpacity(0.8),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0)),
+                                              child: Center(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: const [
+                                                    Icon(
+                                                      Icons
+                                                          .check_circle_outline_outlined,
+                                                      color: AppColors.white,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 7.0,
+                                                    ),
+                                                    customText(
+                                                        text: "Add",
+                                                        id: 1,
+                                                        color: Colors.white),
+                                                  ],
+                                                ),
+                                              ))))
+                                ])
+                          ]),
+                        ))));
           });
         });
   }

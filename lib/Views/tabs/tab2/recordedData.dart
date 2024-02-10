@@ -1,12 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors
 
 import 'package:audio_probe/Custom/base_widget.dart';
-import 'package:audio_probe/Custom/celevatedbutton.dart';
 import 'package:audio_probe/Custom/custom_text.dart';
-import 'package:audio_probe/Custom/custom_textfield.dart';
-import 'package:audio_probe/Custom/systempadding.dart';
-import 'package:audio_probe/Models/analysis.model.dart';
-import 'package:audio_probe/Provider/login.provider.dart';
+import 'package:audio_probe/Models/analysisSummary.model.dart';
 import 'package:audio_probe/Provider/recording.provider.dart';
 import 'package:audio_probe/Values/values.dart';
 import 'package:flutter/material.dart';
@@ -14,17 +10,23 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
-class AnalysedScreen extends StatefulWidget {
-  final AnalysisData analysisData;
+class RecAnalysisScreen extends StatefulWidget {
+  final AnalysisDatas analysisData;
   final String clientId;
-  const AnalysedScreen(
-      {super.key, required this.analysisData, required this.clientId});
+  final String date;
+  final String comments;
+  const RecAnalysisScreen(
+      {super.key,
+      required this.analysisData,
+      required this.clientId,
+      required this.date,
+      required this.comments});
 
   @override
-  State<AnalysedScreen> createState() => _AnalysedScreenState();
+  State<RecAnalysisScreen> createState() => _RecAnalysisScreenState();
 }
 
-class _AnalysedScreenState extends State<AnalysedScreen> {
+class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<RecordingProvider>(builder: (context, provider, child) {
@@ -84,6 +86,14 @@ class _AnalysedScreenState extends State<AnalysedScreen> {
                 SizedBox(
                   height: 10,
                 ),
+                Divider(),
+                customText(
+                  text: "Recorded on date: ${widget.date}",
+                  id: 2,
+                  textSize: 16,
+                  weight: FontWeight.bold,
+                ),
+                Divider(),
                 Expanded(
                   child: ListView(
                     children: [
@@ -698,26 +708,6 @@ class _AnalysedScreenState extends State<AnalysedScreen> {
                               ),
                             ],
                           ),
-                          Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Expanded(
-                                      child: CElevatedButton(
-                                          onpressed: () =>
-                                              saveToRecords(provider, context),
-                                          color: AppColors.primaryDarkColor,
-                                          size: Size(170, 50),
-                                          text: Text(
-                                            "Save",
-                                            style: GoogleFonts.poppins(
-                                                color: AppColors.white,
-                                                fontSize: Sizes.TEXT_SIZE_22),
-                                          )),
-                                    ),
-                                  ]))
                         ],
                       ),
                     ],
@@ -725,141 +715,5 @@ class _AnalysedScreenState extends State<AnalysedScreen> {
                 ),
               ])));
     });
-  }
-
-  Future<void> saveToRecords(RecordingProvider provider, BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return showGeneralDialog(
-        context: context,
-        barrierLabel: "SaveTo Patient's Records",
-        barrierDismissible: true,
-        // barrierColor: Colors.black.withOpacity(0.5),
-        transitionDuration: Duration(milliseconds: 300),
-        pageBuilder: (filtercontext, __, ___) {
-          return StatefulBuilder(builder: (context, setState) {
-            return Material(
-              color: Colors.transparent,
-              child: SystemPadding(
-                  child: Center(
-                      child: Container(
-                          padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.symmetric(horizontal: 20),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
-                                height: 13,
-                              ),
-                              Container(
-                                color: AppColors.white10,
-                                height: 45.0,
-                                width: size.width,
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 16.0, vertical: 8.0),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Confirm Save",
-                                        style: GoogleFonts.poppins(
-                                            color: AppColors.hint,
-                                            fontSize: Sizes.TEXT_SIZE_22,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Divider(),
-                              Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        "Are you sure you want to save the analysis report to this user's records?",
-                                        overflow: TextOverflow.clip,
-                                        style: GoogleFonts.poppins(
-                                            color: AppColors.black,
-                                            fontSize: Sizes.TEXT_SIZE_18),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 12.0,
-                              ),
-                              Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: CustomTextFormField(
-                                          controller: provider.commentscontrlr,
-                                          hint: "Comments(Optional)",
-                                        ),
-                                      ),
-                                    ),
-                                  ]),
-                              SizedBox(
-                                height: 12.0,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Expanded(
-                                      child: CElevatedButton(
-                                          onpressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          color: AppColors.white,
-                                          size: Size(170, 50),
-                                          text: Text(
-                                            "Cancel",
-                                            style: GoogleFonts.poppins(
-                                                color:
-                                                    AppColors.primaryDarkColor,
-                                                fontSize: Sizes.TEXT_SIZE_22),
-                                          )),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                      child: CElevatedButton(
-                                          onpressed: () {
-                                            provider.saveRecord(
-                                                context: context,
-                                                anlyticdata:
-                                                    widget.analysisData,
-                                                clientId: widget.clientId);
-                                          },
-                                          color: AppColors.primaryDarkColor,
-                                          size: Size(0, 50),
-                                          text: Text(
-                                            "Save",
-                                            style: GoogleFonts.poppins(
-                                                color: AppColors.white,
-                                                fontSize: Sizes.TEXT_SIZE_22),
-                                          )),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          )))),
-            );
-          });
-        });
   }
 }

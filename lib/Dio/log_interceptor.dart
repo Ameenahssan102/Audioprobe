@@ -1,23 +1,20 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:audio_probe/Utils/print_util.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 class LoggingInterceptor extends InterceptorsWrapper {
-  int maxCharectersPerLine = 200;
+  int maxCharactersPerLine = 200;
 
   @override
   Future onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    if (kDebugMode) {
-      print("--> ${options.method} ${options.path}");
-    }
-    if (kDebugMode) {
-      print("Headers: ${options.method.toString()}");
-    }
-    if (kDebugMode) {
-      print("<-- END HTTP");
-    }
+    PrintUtil.printImportant(
+        "--> ${options.method} ${options.baseUrl}${options.path}");
+    /* PrintUtil.printImportant("Headers ->  ${options.headers.toString()}");
+    PrintUtil.printImportant("Data -> ${options.data}");
+    PrintUtil.printImportant("<-- END HTTP");*/
 
     return super.onRequest(options, handler);
   }
@@ -25,43 +22,36 @@ class LoggingInterceptor extends InterceptorsWrapper {
   @override
   Future onResponse(
       Response response, ResponseInterceptorHandler handler) async {
-    if (kDebugMode) {
-      print(
+    PrintUtil.printImportant(
         "<-- ${response.statusCode} ${response.requestOptions.method} ${response.requestOptions.path}");
-    }
 
     String responseAsString = response.data.toString();
 
-    if (responseAsString.length > maxCharectersPerLine) {
-      int iterations = (responseAsString.length / maxCharectersPerLine).floor();
+    if (responseAsString.length > maxCharactersPerLine) {
+      int iterations = (responseAsString.length / maxCharactersPerLine).floor();
       for (int i = 0; i <= iterations; i++) {
-        int endingIndex = i * maxCharectersPerLine + maxCharectersPerLine;
+        int endingIndex = i * maxCharactersPerLine + maxCharactersPerLine;
         if (endingIndex > responseAsString.length) {
           endingIndex = responseAsString.length;
         }
-        if (kDebugMode) {
-          print(responseAsString.substring(i * maxCharectersPerLine,endingIndex));
-        }
+        PrintUtil.printImportant(
+            responseAsString.substring(i * maxCharactersPerLine, endingIndex));
       }
-    }else {
-      if (kDebugMode) {
-        print(response.data);
-      }
+    } else {
+      PrintUtil.printImportant(response.data);
     }
     return super.onResponse(response, handler);
-      }
+  }
 
-      @override
-      Future onError(DioError err,ErrorInterceptorHandler handler)async {
-        if(err.response?.statusCode == 401){
-          if (kDebugMode) {
-            print("401 LoggingInterceptor");
-          }
-        }
-
-        if (kDebugMode) {
-          print("ERROR[${err.response?.statusCode}] => PATH : ${err.requestOptions.path}");
-        }
-        return super.onError(err, handler);
-      }
+  @override
+  Future onError(DioError err, ErrorInterceptorHandler handler) async {
+    PrintUtil.printImportant(
+        "ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}");
+    if (err.response?.statusCode == 401) {
+      //var context = NavigationService.navigatorKey.currentState!.context;
+      //Navigator.pushAndRemoveUntil(context, SlideRightRoute(page: const LogoutScreen()), (route) => false);
+    } else {
+      return super.onError(err, handler);
     }
+  }
+}

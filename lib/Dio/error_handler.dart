@@ -2,7 +2,6 @@
 
 import 'package:audio_probe/Dio/err_response.dart';
 import 'package:dio/dio.dart';
-
 class ApiErrorHandler {
   static dynamic getMessage(error) {
     dynamic errorDescription = "";
@@ -11,40 +10,55 @@ class ApiErrorHandler {
         if (error is DioException) {
           switch (error.type) {
             case DioExceptionType.badCertificate:
-              errorDescription = "badCertificate";
+              errorDescription =
+                  "Sorry, there's an issue with the server's security certificate. Please try again later.";
               break;
             case DioExceptionType.connectionError:
-              errorDescription = "connectionError";
+              errorDescription =
+                  "Sorry, we couldn't connect to the server. Please check your internet connection or try again later.";
               break;
             case DioExceptionType.cancel:
-              errorDescription = "Request to API server was cancelled";
+              errorDescription = "The request to the server was cancelled.";
               break;
             case DioExceptionType.connectionTimeout:
-              errorDescription = "Connection timeout with API server";
+              errorDescription =
+                  "The connection to the server timed out. Please try again later.";
               break;
             case DioExceptionType.unknown:
               errorDescription =
-                  "Connection to API server failed due to internet connection";
+                  "Sorry, there was a problem connecting to the server due to an internet connection issue. Please check your network and try again.";
               break;
             case DioExceptionType.receiveTimeout:
               errorDescription =
-                  "Receive timeout in connection with API server";
+                  "Sorry, we didn't receive a response from the server in time. Please try again later.";
               break;
             case DioExceptionType.badResponse:
               switch (error.response!.statusCode) {
                 case 302:
-                  errorDescription = "302";
+                  errorDescription = "Redirecting... Please wait.";
                   break;
                 case 400:
-                  errorDescription = "${error.response!.data}";
-                  break;
                 case 409:
                   try {
-                    // Assuming the response contains a 'message' field, otherwise, use a generic error message.
-                    errorDescription = error.response!.data['message'] ??
-                        "An error occurred while processing your request. Please try again.";
+                    // Check if the response data is a Map, if not, use it as a string.
+                    dynamic responseData = error.response!.data;
+
+                    if (responseData is Map<String, dynamic>) {
+                      // Assuming the response contains a 'message' field, otherwise, use a generic error message.
+                      errorDescription = responseData['message'] ??
+                          "An error occurred while processing your request. Please try again.";
+                    } else if (responseData is String) {
+                      // Use the string response directly.
+                      errorDescription = responseData;
+                    } else {
+                      // Handle other cases if needed
+                      // ...
+                    }
                   } catch (e) {
-                    errorDescription = "${error.response!.data}";
+                    print("Error: $e");
+                    print("Response data: ${error.response?.data}");
+                    errorDescription =
+                        "An unexpected error occurred. Please try again later.";
                   }
                   break;
                 case 401:
@@ -52,36 +66,45 @@ class ApiErrorHandler {
                       "Sorry, you are not authorized to perform this action.";
                   break;
                 case 404:
-                  errorDescription = "Not found";
+                  errorDescription =
+                      "Sorry, the requested resource was not found.";
                   break;
                 case 500:
                 case 503:
-                  errorDescription = error.response!.statusMessage;
+                  errorDescription =
+                      "Sorry, there was an internal server error. Please try again later.";
                   break;
                 default:
                   ErrorResponse errorResponse =
-                      ErrorResponse.fromJson(error.response!.data);
+                      ErrorResponse.fromJson(error.response?.data);
                   if (errorResponse.errors.isNotEmpty) {
-                    errorDescription = errorResponse;
+                    // Customize further based on the specific error structure of your API.
+                    errorDescription =
+                        "An error occurred: ${errorResponse.errors.join(', ')}";
                   } else {
                     errorDescription =
-                        "Failed to load data - status code: ${error.response!.statusCode}";
+                        "Sorry, an error occurred while processing your request. Please try again later.";
                   }
               }
               break;
-            case DioExceptionType.sendTimeout:
-              errorDescription = "Send timeout with server";
+            case DioErrorType.sendTimeout:
+              errorDescription =
+                  "Sending your request to the server took too long. Please try again later.";
               break;
           }
         } else {
-          errorDescription = "Unexpected error occured";
+          errorDescription =
+              "An unexpected error occurred. Please try again later.";
         }
       } on FormatException catch (e) {
-        errorDescription = e.toString();
+        errorDescription =
+            "An unexpected error occurred. Please try again later.";
       }
     } else {
-      errorDescription = "No Internet Connection";
+      errorDescription =
+          "An unexpected error occurred. Please try again later.";
     }
+
     return errorDescription;
   }
 }

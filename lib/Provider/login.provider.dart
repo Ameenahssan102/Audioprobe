@@ -125,43 +125,6 @@ class LoginUser with ChangeNotifier {
     }
   }
 
-  // Future<void> signup() async {
-  //   String email = emailController.text;
-  //   String password = passwordController.text;
-  //   // print("fcm-$fcmToken");
-  //   if (email.isEmpty && password.isEmpty) {
-  //     Alerts.showError("Login credentials are empty");
-  //   } else if (email.isEmpty) {
-  //     Alerts.showError("Email is is not allowed to be empty!");
-  //   } else if (password.isEmpty) {
-  //     Alerts.showError("Password is is not allowed to be empty!");
-  //   } else {
-  //     Dialogs.showLoading();
-  //     ApiResponse res = await repo.postData(StringConst.login,
-  //         data: {'email': email, 'password': password});
-  //     Navigator.pop(ns.getContext());
-  //     if (res.response != null && res.response!.statusCode == 200) {
-  //       clearControllers();
-  //       LoginResModel loginRes = LoginResModel.fromJson(res.response!.data);
-  //       dioClient.dio.options.headers = {'Authorization': loginRes.jwtToken};
-  //       sharedPreferences.setString("name", loginRes.name);
-  //       sharedPreferences.setString("email", loginRes.email);
-  //       sharedPreferences.setString("mobile", loginRes.mobile);
-  //       if (kDebugMode) {
-  //         print(loginRes.jwtToken);
-  //       }
-  //       sharedPreferences.setString("token", loginRes.jwtToken);
-  //       sharedPreferences.setBool("isLogged", true);
-  //       Navigator.pushAndRemoveUntil(
-  //           ns.getContext(),
-  //           MaterialPageRoute(builder: (context) => HomePage()),
-  //           (route) => false);
-  //     } else {
-  //       Alerts.showError(res.error);
-  //     }
-  //   }
-  // }
-
   Future<void> login(bool isStaff) async {
     String username = usernameController.text;
     String password = passwordController.text;
@@ -192,11 +155,11 @@ class LoginUser with ChangeNotifier {
         sharedPreferences.setString("userId",
             isStaff ? staffLoginRes!.id.toString() : loginRes!.id!.toString());
         sharedPreferences.setString(
-            "name", isStaff ? staffLoginRes!.name! : loginRes!.name!);
+            "name", isStaff ? "Staff" : loginRes!.name!);
         sharedPreferences.setString(
-            "email", isStaff ? staffLoginRes!.email! : loginRes!.email!);
+            "email", isStaff ? "0738888xx00" : loginRes!.email!);
         sharedPreferences.setString(
-            "mobile", isStaff ? staffLoginRes!.mobile! : loginRes!.mobile!);
+            "mobile", isStaff ? "audioprobxx@outlook.com" : loginRes!.mobile!);
         sharedPreferences.setString(
             "role", isStaff ? staffLoginRes!.therapist! : loginRes!.role!);
         sharedPreferences.setString("token",
@@ -212,45 +175,27 @@ class LoginUser with ChangeNotifier {
       }
     }
   }
-//   {
-//       "username": "ameen@123",
-//       "fullname": "ameen",
-//       "email": "ameen102@gmail.com",
-//       "password": "12345",
-//       "mobile": "91824536790",
-//       "roleId": 1
-// }
-
-  Future<void> forgetPassword() async {
-    String email = usernameController.text;
-    ApiResponse res;
-    Dialogs.showLoading();
-    res =
-        await repo.postData(StringConst.forgetPassword, data: {'email': email});
-    Navigator.pop(ns.getContext());
-    if (res.response != null && res.response!.statusCode == 200) {
-      CommonRes commonRes = CommonRes.fromJson(res.response!.data);
-      Alerts.showSuccess(commonRes.message);
-    } else {
-      Alerts.showError(res.error);
-    }
-  }
 
   Future<void> updatePassword() async {
     String currentPassword = currentPasswordController.text;
     String newPassword = newPasswordController.text;
     String confirmPassword = confirmPasswordController.text;
+    final userid = sharedPreferences.getString("userId") ?? "";
     if (newPassword.length < 8) {
       Alerts.showError("New password must be at least 8 characters long");
     } else if (newPassword != confirmPassword) {
       Alerts.showError("Enter valid password");
     } else {
       var data = {
+        'id': userid,
         'currentPassword': currentPassword,
         'newPassword': confirmPassword
       };
       ApiResponse res =
           await repo.postData(StringConst.updatePassword, data: data);
+      if (res.response?.statusCode == 401) {
+        Alerts.showError("Invalid Password");
+      }
       if (res.response != null && res.response!.statusCode == 200) {
         CommonRes commonRes = CommonRes.fromJson(res.response!.data);
         Alerts.showSuccess(commonRes.message);

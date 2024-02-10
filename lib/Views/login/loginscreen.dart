@@ -278,8 +278,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       color: AppColors.white,
                                     ),
                                   ],
-                                )
-                                ),
+                                )),
                           ],
                         ),
                       ),
@@ -323,7 +322,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           Alerts.showError(
                                               "Username is not allowed to be empty !");
                                         } else {
-                                          authProvider.forgetPassword();
+                                          // authProvider.forgetPassword();
                                           activeCounter();
                                         }
                                       }
