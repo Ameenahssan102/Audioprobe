@@ -1,16 +1,19 @@
-# audio_probe
+# Audio Probe - (Flutter)
 
-A new Flutter project.
+Audio Probe is a cutting-edge healthcare application that leverages advanced speech analysis technology to provide valuable insights into vocal health and performance. This repository contains the frontend codebase of the Audio Probe application, built using the Flutter framework.
 
-## Getting Started
+## Key Features
 
-This project is a starting point for a Flutter application.
+- **Speech Analysis:** Utilizes state-of-the-art algorithms to analyze various aspects of speech, including pitch, jitter, shimmer, and formants.
+- **User-friendly Interface:** Intuitive and aesthetically pleasing UI design for seamless user interaction and engagement.
+- **Authentication and Authorization:** Secure user authentication and authorization mechanisms to ensure data privacy and confidentiality.
+- **Appointment Scheduling:** Convenient appointment scheduling feature to facilitate communication between patients and healthcare professionals.
+- **Internationalization and Localization:** Support for multiple languages to cater to a diverse global audience.
 
-A few resources to get you started if this is your first Flutter project:
+## Technologies Used
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Flutter:** Cross-platform framework for building native mobile applications.
+- **Dart:** Object-oriented programming language used for developing Flutter applications.
+- **Provider:** State management library for managing application state efficiently.
+- **Dio:** HTTP client for making network requests and communicating with the backend server.
+- **Other Packages:** Various other Flutter packages used for UI components, networking, localization, and more (see `pubspec.yaml` for details).
