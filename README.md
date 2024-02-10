@@ -8,12 +8,11 @@ Audio Probe is a cutting-edge healthcare application that leverages advanced spe
 - **User-friendly Interface:** Intuitive and aesthetically pleasing UI design for seamless user interaction and engagement.
 - **Authentication and Authorization:** Secure user authentication and authorization mechanisms to ensure data privacy and confidentiality.
 - **Appointment Scheduling:** Convenient appointment scheduling feature to facilitate communication between patients and healthcare professionals.
-- **Internationalization and Localization:** Support for multiple languages to cater to a diverse global audience.
-
+  
 ## Technologies Used
 
 - **Flutter:** Cross-platform framework for building native mobile applications.
 - **Dart:** Object-oriented programming language used for developing Flutter applications.
 - **Provider:** State management library for managing application state efficiently.
 - **Dio:** HTTP client for making network requests and communicating with the backend server.
-- **Other Packages:** Various other Flutter packages used for UI components, networking, localization, and more (see `pubspec.yaml` for details).
+- **Other Packages:** Various other Flutter packages used for UI components, networking, and more (see `pubspec.yaml` for details).
