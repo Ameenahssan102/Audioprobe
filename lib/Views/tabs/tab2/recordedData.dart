@@ -131,7 +131,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     child: Center(
                                         child: Text(widget
                                                 .analysisData.meanlocaljitter
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -161,7 +162,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     child: Center(
                                         child: Text(widget
                                                 .analysisData.meanlocalabsolute
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -189,7 +191,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                         child: Text(widget.analysisData.meanrap
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -217,7 +220,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                         child: Text(widget.analysisData.meanppq5
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -245,7 +249,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                         child: Text(widget.analysisData.meanddp
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -275,7 +280,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     child: Center(
                                         child: Text(widget
                                                 .analysisData.meanlocalshimmer
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -304,7 +310,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     child: Center(
                                         child: Text(widget
                                                 .analysisData.meanlocaldb
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -332,7 +339,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                         child: Text(widget.analysisData.meanapq3
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -361,7 +369,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     child: Center(
                                         child: Text(widget
                                                 .analysisData.meanaqpq5
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -390,7 +399,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     child: Center(
                                         child: Text(widget
                                                 .analysisData.meanapq11
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -418,7 +428,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                         child: Text(widget.analysisData.meandda
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -447,7 +458,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     child: Center(
                                         child: Text(widget
                                                 .analysisData.meanpitch
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -476,7 +488,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     child: Center(
                                         child: Text(widget
                                                 .analysisData.meansdpitch
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -504,7 +517,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                         child: Text(widget.analysisData.minpitch
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -532,7 +546,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                         child: Text(widget.analysisData.maxpitch
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -560,7 +575,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                         child: Text(widget.analysisData.meanHnr
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -589,7 +605,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     child: Center(
                                         child: Text(widget
                                                 .analysisData.meansdHnr
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -617,7 +634,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                         child: Text(widget.analysisData.f1
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -645,7 +663,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                         child: Text(widget.analysisData.f2
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -673,7 +692,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                         child: Text(widget.analysisData.f3
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],
@@ -701,7 +721,8 @@ class _RecAnalysisScreenState extends State<RecAnalysisScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                         child: Text(widget.analysisData.f4
-                                                ?.substring(0, 7) ??
+                                                ?.toString()
+                                                .substring(0, 7) ??
                                             '')),
                                   )),
                                 ],

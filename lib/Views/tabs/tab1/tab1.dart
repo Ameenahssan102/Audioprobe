@@ -105,7 +105,6 @@ class _Tab1State extends State<Tab1> {
                     borderRadius: BorderRadius.circular(14)),
                 elevation: 3,
                 child: Container(
-                    height: 120,
                     width: size.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(14),

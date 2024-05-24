@@ -79,27 +79,27 @@ class RecordedData {
 }
 
 class AnalysisDatas {
-  String? f1;
-  String? f2;
-  String? f3;
-  String? f4;
-  String? meanHnr;
-  String? meandda;
-  String? meanddp;
-  String? meanrap;
-  String? maxpitch;
-  String? meanapq3;
-  String? meanppq5;
-  String? minpitch;
-  String? meanapq11;
-  String? meanaqpq5;
-  String? meanpitch;
-  String? meansdHnr;
-  String? meanlocaldb;
-  String? meansdpitch;
-  String? meanlocaljitter;
-  String? meanlocalshimmer;
-  String? meanlocalabsolute;
+  double? f1;
+  double? f2;
+  double? f3;
+  double? f4;
+  double? meanHnr;
+  double? meandda;
+  double? meanddp;
+  double? meanrap;
+  double? maxpitch;
+  double? meanapq3;
+  double? meanppq5;
+  double? minpitch;
+  double? meanapq11;
+  double? meanaqpq5;
+  double? meanpitch;
+  double? meansdHnr;
+  double? meanlocaldb;
+  double? meansdpitch;
+  double? meanlocaljitter;
+  double? meanlocalshimmer;
+  double? meanlocalabsolute;
 
   AnalysisDatas({
     this.f1,

@@ -19,27 +19,27 @@ class AnalysisModel {
 }
 
 class AnalysisData {
-  String? meanlocaljitter;
-  String? meanlocalabsolute;
-  String? meanrap;
-  String? meanppq5;
-  String? meanddp;
-  String? meanlocalshimmer;
-  String? meanlocaldb;
-  String? meanapq3;
-  String? meanaqpq5;
-  String? meanapq11;
-  String? meandda;
-  String? meanpitch;
-  String? meansdpitch;
-  String? minpitch;
-  String? maxpitch;
-  String? meanHnr;
-  String? meansdHnr;
-  String? f1;
-  String? f2;
-  String? f3;
-  String? f4;
+  double? meanlocaljitter;
+  double? meanlocalabsolute;
+  double? meanrap;
+  double? meanppq5;
+  double? meanddp;
+  double? meanlocalshimmer;
+  double? meanlocaldb;
+  double? meanapq3;
+  double? meanaqpq5;
+  double? meanapq11;
+  double? meandda;
+  double? meanpitch;
+  double? meansdpitch;
+  double? minpitch;
+  double? maxpitch;
+  double? meanHnr;
+  double? meansdHnr;
+  double? f1;
+  double? f2;
+  double? f3;
+  double? f4;
 
   AnalysisData({
     this.meanlocaljitter,

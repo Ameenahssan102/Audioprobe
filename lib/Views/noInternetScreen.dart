@@ -21,7 +21,7 @@ class NoInternetScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 68.0),
-              Lottie.asset('assets/lottie/nointernet.json',
+              Lottie.asset('assets/lotties/nointernet.json',
                   width: size.width, repeat: true),
               const SizedBox(height: 24.0),
               Row(

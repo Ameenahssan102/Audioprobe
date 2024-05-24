@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings, use_build_context_synchronously
 
 import 'dart:convert';
+import 'package:audio_probe/Custom/slide_right_route.dart';
 import 'package:audio_probe/Dio/api_response.dart';
 import 'package:audio_probe/Dio/dio_client.dart';
 import 'package:audio_probe/Models/availability.model.dart';
@@ -11,6 +12,7 @@ import 'package:audio_probe/Navigation/nav.dart';
 import 'package:audio_probe/Utils/time_utils.dart';
 import 'package:audio_probe/Values/dialogs.dart';
 import 'package:audio_probe/Values/values.dart';
+import 'package:audio_probe/Views/login/loginscreen.dart';
 import 'package:audio_probe/Views/tabs/tab3/tab3.dart';
 import 'package:audio_probe/repo.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +56,9 @@ class BookingProvider with ChangeNotifier {
         "${StringConst.GET_MONTHLYnWEEKLY_APPOINTMENTS}?month=$month&year=$year" +
             filterbyWeek);
     Navigator.pop(ns.getContext());
-    if (res.response != null && res.response!.statusCode == 200) {
+    if (res.response?.statusCode == 401) {
+      logout();
+    } else if (res.response != null && res.response!.statusCode == 200) {
       bookingModel = BookingModel.fromJson(res.response!.data);
       timeSheet = bookingModel!.data!;
       meetings = getDataSource(timeSheet);
@@ -74,6 +78,13 @@ class BookingProvider with ChangeNotifier {
           Meeting('', startTime, startTime, const Color(0xFF0F8644), true));
     }
     return meetings;
+  }
+
+  logout() {
+    clearControllers();
+    sharedPreferences.clear();
+    Navigator.pushAndRemoveUntil(ns.getContext(),
+        SlideRightRoute(page: const LoginScreen()), (route) => false);
   }
 
   Future<void> addPatients(
@@ -108,7 +119,9 @@ class BookingProvider with ChangeNotifier {
 
   Future<void> getDashboard() async {
     ApiResponse res = await repo.getData(StringConst.getDashboard);
-    if (res.response != null && res.response!.statusCode == 200) {
+    if (res.response?.statusCode == 401) {
+      logout();
+    } else if (res.response != null && res.response!.statusCode == 200) {
       dashModel = DashModel.fromJson(res.response!.data);
       notifyListeners();
     } else {

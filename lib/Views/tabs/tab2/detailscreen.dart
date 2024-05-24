@@ -570,7 +570,13 @@ class _DetailScreenState extends State<DetailScreen> {
                                                                 .spaceBetween,
                                                         children: [
                                                           customText(
-                                                            text: "Report",
+                                                            text: "Report | " +
+                                                                DateFormat(
+                                                                        "dd-MM-yyyy")
+                                                                    .format(recordingState
+                                                                        .recordedData
+                                                                        .last
+                                                                        .createdAt!),
                                                             id: 1,
                                                             color:
                                                                 AppColors.white,
